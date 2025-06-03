@@ -20,29 +20,33 @@ namespace Shelter2.Models
                     new Pets
                     {
                         Name = "Клепочка",
-                        Date = DateTime.Parse("14.08.2024"),
+                        Date = DateTime.Parse("14/08/2024"),
                         TypeOfInspection  = "Осмотр хвостика",
+                        Age = 8,
                         Price = 3.200M
                     },
                     new Pets
                     {
-                        Name = "Ghostbusters ",
-                        Date = DateTime.Parse("1984-3-13"),
-                        TypeOfInspection  = "Comedy",
+                        Name = "Ариша",
+                        Date = DateTime.Parse("01/06/2023"),
+                        TypeOfInspection  = "Лечение вкусняшками",
+                        Age = 10,
                         Price = 8.99M
                     },
                     new Pets
                     {
-                        Name = "Ghostbusters 2",
-                        Date = DateTime.Parse("1986-2-23"),
-                        TypeOfInspection  = "Comedy",
+                        Name = "Иша",
+                        Date = DateTime.Parse("31/12/2024"),
+                        TypeOfInspection  = "Раскрас шерстки",
+                        Age = 1,
                         Price = 9.99M
                     },
                     new Pets
                     {
-                        Name = "Rio Bravo",
-                        Date = DateTime.Parse("1959-4-15"),
-                        TypeOfInspection  = "Western",
+                        Name = "Луша",
+                        Date = DateTime.Parse("2/5/2025"),
+                        TypeOfInspection  = "Нахождение дома",
+                        Age = 3,
                         Price = 3.99M
                     }
                 );

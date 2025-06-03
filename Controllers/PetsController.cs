@@ -20,11 +20,39 @@ namespace Shelter2.Controllers
         }
 
         // GET: Pets
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string PetsTypeOfInspection, string SearchString)
         {
-            return View(await _context.Pets.ToListAsync());
-        }
+            {
+                if (_context.Pets == null)
+                {
+                    return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+                }
+                IQueryable<string> typeQuery = from m in _context.Pets
+                                                orderby m.TypeOfInspection
+                                                select m.TypeOfInspection;
 
+                var pets = from m in _context.Pets
+                             select m;
+
+                if (!String.IsNullOrEmpty(SearchString))
+                {
+                    pets = pets.Where(s => s.Name!.ToUpper().Contains(SearchString.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(PetsTypeOfInspection))
+                {
+                    pets = pets.Where(x => x.TypeOfInspection == PetsTypeOfInspection);
+                }
+
+                var petsTypeVM = new PetsOperationViewModel
+                {
+                    TypeOfInspection = new SelectList(await typeQuery.Distinct().ToListAsync()),
+                    Pets = await pets.ToListAsync()
+                };
+
+                return View(petsTypeVM);
+            }
+        }
         // GET: Pets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -86,7 +114,7 @@ namespace Shelter2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Date,TypeOfInspection,Price")] Pets pets)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Date,TypeOfInspection,Price,Age")] Pets pets)
         {
             if (id != pets.Id)
             {

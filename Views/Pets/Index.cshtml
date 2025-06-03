@@ -1,34 +1,49 @@
-﻿@model IEnumerable<Shelter2.Models.Pets>
-
+﻿@model Shelter2.Models.PetsOperationViewModel
 @{
-    ViewData["Title"] = "Индекс";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Индекс</h1>
+<h1>Питомцы</h1>
 
 <p>
     <a asp-action="Create">Создать нового</a>
 </p>
+
+
+<form asp-controller="Pets" asp-action="Index" method="get">
+    <p>
+        <select asp-for="PetsTypeOfInspection" asp-items="Model.TypeOfInspection">
+            <option value="">All</option>
+        </select>
+
+        <label>Имя: <input type="text" name="SearchString" /></label>
+        <input type="submit" value="Найти" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Pets![0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                @Html.DisplayNameFor(model => model.Pets![0].Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TypeOfInspection)
+                @Html.DisplayNameFor(model => model.Pets![0].TypeOfInspection)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Pets![0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pets![0].Age)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model.Pets!)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -40,12 +55,17 @@
                 @Html.DisplayFor(modelItem => item.TypeOfInspection)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+
+            <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
+
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
             </td>
         </tr>
 }
