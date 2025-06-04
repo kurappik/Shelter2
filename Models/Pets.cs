@@ -6,11 +6,11 @@ namespace Shelter2.Models
     public class Pets
     {
         public int Id { get; set; }
-        [Display(Name="Имя")]
+        [Display(Name = "Имя")]
 
         [StringLength(60, MinimumLength = 3)]
         [Required]
-        public string? Name { get; set; } 
+        public string? Name { get; set; }
         [Display(Name = "Дата")]
         [DataType(DataType.Date)]
 
@@ -23,13 +23,17 @@ namespace Shelter2.Models
 
         [Range(1, 3000)]
         [DataType(DataType.Currency)]
-        [Precision(18,2)]
-        
+        [Precision(18, 2)]
+
         [Display(Name = "Возраст")]
         public decimal Price { get; set; }
 
         [Range(1, 100)]
         [Display(Name = "Цена")]
         public int Age { get; set; }
+        [Display(Name = "Приют")]
+        public int? ShelterId { get; set; }
+        [Display(Name = "Приют")]
+        public Shelter? Shelter { get; set; }
     }
 }

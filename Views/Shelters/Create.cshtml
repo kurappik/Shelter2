@@ -1,0 +1,48 @@
+﻿@model Shelter2.Models.Shelter
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Создать</h1>
+
+<h4>Приют</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NameShelter" class="control-label"></label>
+                <input asp-for="NameShelter" class="form-control" />
+                <span asp-validation-for="NameShelter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Priceshelter" class="control-label"></label>
+                <input asp-for="Priceshelter" class="form-control" />
+                <span asp-validation-for="Priceshelter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgeShelter" class="control-label"></label>
+                <input asp-for="AgeShelter" class="form-control" />
+                <span asp-validation-for="AgeShelter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

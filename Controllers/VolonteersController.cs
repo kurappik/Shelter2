@@ -10,49 +10,23 @@ using Shelter2.Models;
 
 namespace Shelter2.Controllers
 {
-    public class PetsController : Controller
+    public class VolonteersController : Controller
     {
         private readonly Shelter2Context _context;
 
-        public PetsController(Shelter2Context context)
+        public VolonteersController(Shelter2Context context)
         {
             _context = context;
         }
 
-        // GET: Pets
-        public async Task<IActionResult> Index(string PetsTypeOfInspection, string SearchString)
+        // GET: Volonteers
+        public async Task<IActionResult> Index()
         {
-            {
-                if (_context.Pets == null)
-                {
-                    return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
-                }
-                IQueryable<string> typeQuery = from m in _context.Pets
-                                                orderby m.TypeOfInspection
-                                                select m.TypeOfInspection;
-
-                var pets = _context.Pets.Include(v => v.Shelter).AsQueryable();
-
-                if (!String.IsNullOrEmpty(SearchString))
-                {
-                    pets = pets.Where(s => s.Name!.ToUpper().Contains(SearchString.ToUpper()));
-                }
-
-                if (!string.IsNullOrEmpty(PetsTypeOfInspection))
-                {
-                    pets = pets.Where(x => x.TypeOfInspection == PetsTypeOfInspection);
-                }
-
-                var petsTypeVM = new PetsOperationViewModel
-                {
-                    TypeOfInspection = new SelectList(await typeQuery.Distinct().ToListAsync()),
-                    Pets = await pets.ToListAsync()
-                };
-
-                return View(petsTypeVM);
-            }
+            var shelter2Context = _context.Volonteer.Include(v => v.Shelter);
+            return View(await shelter2Context.ToListAsync());
         }
-        // GET: Pets/Details/5
+
+        // GET: Volonteers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -60,42 +34,42 @@ namespace Shelter2.Controllers
                 return NotFound();
             }
 
-            var pets = await _context.Pets
+            var volonteer = await _context.Volonteer
                 .Include(v => v.Shelter)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (pets == null)
+            if (volonteer == null)
             {
                 return NotFound();
             }
 
-            return View(pets);
+            return View(volonteer);
         }
 
-        // GET: Pets/Create
+        // GET: Volonteers/Create
         public IActionResult Create()
         {
             ViewData["ShelterId"] = new SelectList(_context.Set<Shelter>(), "Id", "NameShelter");
             return View();
         }
 
-        // POST: Pets/Create
+        // POST: Volonteers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Date,TypeOfInspection,Price,ShelterId")] Pets pets)
+        public async Task<IActionResult> Create([Bind("Id,NameVolonteer,DateVolonteer,StatusVolonteer,AgeVolonteer,PriceVolonteer,ShelterId")] Volonteer volonteer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(pets);
+                _context.Add(volonteer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShelterId"] = new SelectList(_context.Set<Shelter>(), "Id", "NameShelter", pets.ShelterId);
-            return View(pets);
+            ViewData["ShelterId"] = new SelectList(_context.Set<Shelter>(), "Id", "NameShelter", volonteer.ShelterId);
+            return View(volonteer);
         }
 
-        // GET: Pets/Edit/5
+        // GET: Volonteers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -103,23 +77,23 @@ namespace Shelter2.Controllers
                 return NotFound();
             }
 
-            var pets = await _context.Pets.FindAsync(id);
-            if (pets == null)
+            var volonteer = await _context.Volonteer.FindAsync(id);
+            if (volonteer == null)
             {
                 return NotFound();
             }
-            ViewData["ShelterId"] = new SelectList(_context.Set<Shelter>(), "Id", "NameShelter", pets.ShelterId);
-            return View(pets);
+            ViewData["ShelterId"] = new SelectList(_context.Set<Shelter>(), "Id", "NameShelter", volonteer.ShelterId);
+            return View(volonteer);
         }
 
-        // POST: Pets/Edit/5
+        // POST: Volonteers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Date,TypeOfInspection,Price,Age,ShelterId")] Pets pets)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NameVolonteer,DateVolonteer,StatusVolonteer,AgeVolonteer,PriceVolonteer,ShelterId")] Volonteer volonteer)
         {
-            if (id != pets.Id)
+            if (id != volonteer.Id)
             {
                 return NotFound();
             }
@@ -128,12 +102,12 @@ namespace Shelter2.Controllers
             {
                 try
                 {
-                    _context.Update(pets);
+                    _context.Update(volonteer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PetsExists(pets.Id))
+                    if (!VolonteerExists(volonteer.Id))
                     {
                         return NotFound();
                     }
@@ -144,11 +118,11 @@ namespace Shelter2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShelterId"] = new SelectList(_context.Set<Shelter>(), "Id", "NameShelter", pets.ShelterId);
-            return View(pets);
+            ViewData["ShelterId"] = new SelectList(_context.Set<Shelter>(), "Id", "NameShelter", volonteer.ShelterId);
+            return View(volonteer);
         }
 
-        // GET: Pets/Delete/5
+        // GET: Volonteers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -156,35 +130,35 @@ namespace Shelter2.Controllers
                 return NotFound();
             }
 
-            var pets = await _context.Pets
+            var volonteer = await _context.Volonteer
                 .Include(v => v.Shelter)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (pets == null)
+            if (volonteer == null)
             {
                 return NotFound();
             }
 
-            return View(pets);
+            return View(volonteer);
         }
 
-        // POST: Pets/Delete/5
+        // POST: Volonteers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var pets = await _context.Pets.FindAsync(id);
-            if (pets != null)
+            var volonteer = await _context.Volonteer.FindAsync(id);
+            if (volonteer != null)
             {
-                _context.Pets.Remove(pets);
+                _context.Volonteer.Remove(volonteer);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PetsExists(int id)
+        private bool VolonteerExists(int id)
         {
-            return _context.Pets.Any(e => e.Id == id);
+            return _context.Volonteer.Any(e => e.Id == id);
         }
     }
 }

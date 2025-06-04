@@ -15,5 +15,7 @@ namespace Shelter2.Data
         }
 
         public DbSet<Shelter2.Models.Pets> Pets { get; set; } = default!;
+        public DbSet<Shelter2.Models.Volonteer> Volonteer { get; set; } = default!;
+        public DbSet<Shelter2.Models.Shelter> Shelter { get; set; } = default!;
     }
 }

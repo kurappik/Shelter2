@@ -38,6 +38,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Pets![0].Age)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pets![0].Shelter)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -61,7 +64,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shelter.NameShelter)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |

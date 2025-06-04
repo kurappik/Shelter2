@@ -1,21 +1,21 @@
-﻿@model Shelter2.Models.Pets
+﻿@model Shelter2.Models.Shelter
 
 @{
-    ViewData["Title"] = "Удалить";
+    ViewData["Title"] = "Delete";
 }
 
 <h1>Удалить</h1>
 
 <h3>Вы уверены, что хотите удалить?</h3>
 <div>
-    <h4>Питомцы</h4>
+    <h4>Приют</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.NameShelter)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.NameShelter)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Date)
@@ -24,16 +24,16 @@
             @Html.DisplayFor(model => model.Date)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeOfInspection)
+            @Html.DisplayNameFor(model => model.Priceshelter)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TypeOfInspection)
+            @Html.DisplayFor(model => model.Priceshelter)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.AgeShelter)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.AgeShelter)
         </dd>
     </dl>
     

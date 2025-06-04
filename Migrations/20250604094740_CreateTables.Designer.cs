@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shelter2.Data;
 
@@ -11,9 +12,11 @@ using Shelter2.Data;
 namespace Shelter2.Migrations
 {
     [DbContext(typeof(Shelter2Context))]
-    partial class Shelter2ContextModelSnapshot : ModelSnapshot
+    [Migration("20250604094740_CreateTables")]
+    partial class CreateTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
